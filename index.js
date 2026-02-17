@@ -15,8 +15,19 @@ const client = new Client({
 client.connect();
 
 app.get("/getBoolean", async (req, res) => {
-  const result = await client.query("SELECT powered FROM public.co2_ampel_grete WHERE id = 1;");
-  res.json(result.rows);
+  try {
+    const result = await client.query(
+      "SELECT powered FROM public.co2_ampel_grete WHERE id = 1;"
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Not found" });
+    }
+
+    return res.json(result.rows[0].powered);
+  } catch (err) {
+    return res.status(500).json({ error: "Database error" });
+  }
 });
 
 app.post("/toggleBoolean", async (req, res) => {
