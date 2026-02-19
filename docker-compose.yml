@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: pgl
+      POSTGRES_PASSWORD: halloAnDieWelt3005.
+      POSTGRES_DB: vps03-db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  nodeapp:
+    image: node:20
+    container_name: node_app
+    restart: always
+    working_dir: /app
+    volumes:
+      - ./node:/app
+    command: "npm run dev"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
+  frontend:
+    image: nginx:alpine
+    container_name: react_frontend
+    volumes:
+      - ./frontend/build:/usr/share/nginx/html
+    ports:
+      - "80:80"
+    restart: always
+
+  cronjob:
+    image: node:20
+    container_name: cronjob
+    working_dir: /app
+    volumes:
+      - ./cronjob:/app
+    command: ["npm", "start"]
+    environment:
+      - BASE_URL=https://vm-l-vps03.leon-malte.de:3000
+      - TZ=Europe/Berlin
+    restart: always
+
+volumes:
+  pgdata:
