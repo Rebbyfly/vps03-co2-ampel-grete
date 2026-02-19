@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4;
+  padding: 16px;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.field {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+input[type="time"] {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .card {
+    padding: 16px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+}
+
+.flash {
+  animation: blink 0.6s ease;
+  background-color: #4caf50;
+  color: white;
+}
+
+@keyframes blink {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
