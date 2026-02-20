@@ -4,9 +4,7 @@ import "./App.css";
 export default function App() {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [isOn, setIsOn] = useState(null);
   const [saved, setSaved] = useState(false);
-
 
 
   useEffect(() => {
@@ -15,7 +13,6 @@ export default function App() {
       try {
         const res = await fetch("http://vm-l-vps03.leon-malte.de:3000/getBoolean");
         const data = await res.json();
-        setIsOn(data);
       } catch (err) {
         console.error("Fehler beim Laden:", err);
       }
@@ -59,21 +56,6 @@ export default function App() {
     }
   }
 
-  const toggleBoolean = async () => {
-    await fetch("http://vm-l-vps03.leon-malte.de:3000/toggleBoolean", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: '',
-    });
-  };
-
-  const onClickAnAus = () => {
-    toggleBoolean();
-    setIsOn(!isOn);
-  }
-
   return (
     <div className="container">
       <form className="card" onSubmit={handleSubmit}>
@@ -99,18 +81,9 @@ export default function App() {
           type="submit"
           className={saved ? "flash" : ""}
         >
-          {saved ? "Gespeichert ✓" : "Festlegen"}
+          {saved ? "Gespeichert âœ“" : "Festlegen"}
         </button>
 
-
-        <button
-          style={{ marginTop: "2vh" }}
-          type="button"
-          className="toggle"
-          onClick={() => onClickAnAus()}
-        >
-          {isOn ? "Aus" : "An"}
-        </button>
       </form>
     </div>
   );
